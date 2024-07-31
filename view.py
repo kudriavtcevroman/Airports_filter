@@ -4,11 +4,26 @@ from PyQt6.QtWidgets import (
 )
 
 class AirportView(QWidget):
+    """
+    Представление для отображения интерфейса пользователя.
+
+    Класс AirportView создает и управляет элементами интерфейса для отображения данных аэропортов и фильтрации.
+    """
     def __init__(self):
+        """
+        Инициализация представления.
+
+        Создает интерфейс с элементами для ввода данных фильтрации и таблицей для отображения результатов.
+        """
         super().__init__()
         self.init_ui()
 
     def init_ui(self):
+        """
+        Инициализация элементов интерфейса.
+
+        Создает и располагает метки, поля ввода, кнопку фильтрации и таблицу.
+        """
         self.min_lat_label = QLabel('Min Latitude:', self)
         self.min_lat_input = QLineEdit(self)
 
@@ -67,6 +82,13 @@ class AirportView(QWidget):
         self.setGeometry(100, 100, 800, 600)
 
     def set_table_data(self, data):
+        """
+        Установка данных в таблицу.
+
+        Заполняет таблицу данными об аэропортах, очищая предыдущие данные.
+
+        :param data: Список словарей с информацией об аэропортах.
+        """
         self.table.setRowCount(len(data))
         self.table.clearContents()
         for row, airport in enumerate(data):
@@ -76,6 +98,11 @@ class AirportView(QWidget):
             self.table.setItem(row, 3, QTableWidgetItem(str(airport['longitude'])))
 
     def show_error(self, message):
+        """
+        Отображает сообщение об ошибке в модальном окне.
+
+        :param message: Текст сообщения об ошибке.
+        """
         error_dialog = QMessageBox(self)
         error_dialog.setIcon(QMessageBox.Icon.Critical)
         error_dialog.setWindowTitle("Error")
